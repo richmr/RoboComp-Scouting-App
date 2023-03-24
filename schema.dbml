@@ -1,0 +1,42 @@
+Table Events {
+  eventID int [pk, increment]
+  event_name varchar [not null, unique]
+}
+
+Enum user_roles {
+  admin,
+  user
+}
+
+Table Users {
+  userID int [pk, increment]
+  username varchar [not null, unique]
+  passcode varchar [not null]
+  role user_roles [default: admin]
+}
+
+table Matches {
+  matchID int [pk, increment]
+  eventID int [ref: > Events.eventID]
+  match_name varchar 
+}
+
+table Teams {
+  teamID int [not null]
+  team_name varchar
+  eventID int [ref: > Events.eventID]
+}
+
+Table Match_Assignments {
+  match_assignment_id int [pk, increment]
+  matchID int [ref: > Matches.matchID]
+  assignment varchar
+  teamID int [ref: > Teams.teamID]  
+}
+
+Table Game_Modes {
+  modeID int [pk, increment]
+  mode_name varchar [not_null, unique]
+  icon varchar [note: 'filename reference, absolute starting with / preferred. If none will be just a button']
+}
+
